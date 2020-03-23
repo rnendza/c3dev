@@ -1,0 +1,13 @@
+<template>
+    <lightning-card class="accel-search-results-card">
+        <span slot="title" style="margin-bottom:0">
+            <span>
+                <i class="fas fa-map-marked-alt" style="color:darkorange"></i>
+            </span>
+            <span class="slds-p-left--medium">{cardTitle}</span>
+        </span>
+        <div class="">
+            <div data-id="leafletmap" id="leafletmap" class="accel-leaflet-map" lwc:dom="manual"></div>
+        </div>
+    </lightning-card>
+</template>
