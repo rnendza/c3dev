@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="A generic event carrying any payload in an object">
+    <aura:attribute name="payload" type="Object" access="global"/>
+</aura:event>

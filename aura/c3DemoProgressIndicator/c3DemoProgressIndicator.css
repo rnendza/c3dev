@@ -1,0 +1,15 @@
+.THIS .slds-progress { max-width: 95%;}
+.THIS .accel-progress-container_vertical {min-height: 50px;padding-bottom: 25px;padding-top:10px;font-size: .850rem}
+.THIS .accel-progress_vertical {/* nothing yet */}
+.THIS .slds-progress_vertical .slds-progress__item.slds-is-completed .slds-progress__marker_icon svg {fill: green;}
+.THIS .slds-progress_vertical .slds-progress__item.slds-is-active div:first-child  {font-weight: bold}
+.THIS .slds-gutters_x-small .slds-col { padding-left: 1px}
+.THIS .slds-card__header { border-bottom: 1px solid rgb(221,219,218);padding-bottom: .50rem;background-color: rgb(243,242,242)}
+.THIS .slds-progress_vertical .slds-progress__item_content { border-bottom: 1px solid rgb(243,242,242);}
+.THIS .accel-card-title {font-weight: bold}
+.THIS .accel-completed-text {font-weight: lighter}
+.THIS .accel-current-text {font-weight: bold }
+.THIS .accel-highlight-container {background-color: rgb(255, 226, 135);   border-radius: 5px;padding-top:3px;padding-bottom: 3px}
+.THIS .accel-progress-description {font-size:.945em; margin-left:5px }
+.THIS .accel-pill__medium {font-size: .85em;padding-bottom: 0}
+.THIS .c3-client-name {font-size:1.0em;font-weight: bold}

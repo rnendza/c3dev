@@ -1,0 +1,62 @@
+<template>
+    <c-c-3-lightning-record-page-overrides ></c-c-3-lightning-record-page-overrides>
+    <lightning-card  variant="Narrow"  icon-name="standard:user">
+        <div slot="title">
+            <div class="slds-grid">
+                <div class="slds-col slds-size--1-of-2 slds-text-align--left">
+                    <span class="slds-card__header-title slds-truncate slds-m-right--xx-small c3-card-title">
+                        Candidate Summary
+                    </span>
+                </div>
+                <div class="slds-col slds-size--1-of-2 slds-text-align--right slds-text-color_success">
+                    <div style="display:inline-block" class="slds-p-right--medium" >
+                        <span onclick={handleFilePreview} data-id="0693h0000005JgC">
+                            <lightning-icon icon-name="doctype:word" alternative-text="Click here to view resume"
+                                            title="Click here to view resume"
+                                            size="small"></lightning-icon>
+                        </span>
+                    </div>
+                    <div if:false={cmpCollapsed} style="display:inline-block;"
+                         onclick={handleCollapseCmp}>
+                        <lightning-icon icon-name="utility:collapse_all" alternative-text="Collapse All"
+                                        size="small"></lightning-icon>
+                    </div>
+                    <div if:true={cmpCollapsed} style="display:inline-block;"
+                         onclick={handleExpandCmp}>
+                        <lightning-icon icon-name="utility:expand_alt" alternative-text="Expand All"
+                                        size="small"></lightning-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class={cardBodyClass} style="background-color: linen;padding-bottom:36px;padding-top: 20px">
+            <template if:true={fullContactInfo}>
+                <div class="slds-scrollable_y" style="height:19rem;font-size:1.05em!important">
+                    <lightning-formatted-rich-text
+                        value={fullContactInfo.Career_Summary__c}></lightning-formatted-rich-text>
+
+                </div>
+            </template>
+        </p>
+        <div class={cardFooterClass}>
+        <p slot="footer">
+            <template if:true={fullContactInfo}>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size--1-of-2">
+                        <div class="slds-text-align--left" >
+                            <lightning-formatted-email value={fullContactInfo.Email}></lightning-formatted-email>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-2">
+                        <div class="slds-text-align--right">
+                            <lightning-formatted-phone
+                                    class="slds-text-title_bold"
+                                    value={fullContactInfo.MobilePhone}></lightning-formatted-phone>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </p>
+        </div>
+    </lightning-card>
+</template>

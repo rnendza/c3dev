@@ -1,0 +1,134 @@
+<aura:component description="C3RecordPageStyleOverrides"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader">
+
+    <aura:attribute  name="validApprovalBtnStatus"  type="String" />
+    <aura:attribute  name="currentStatus"           type="String" />
+    <aura:html tag="style">
+        <!--
+        The desired effect here is to override the Standard LDC Enhanced Related list as its font size is way to big.
+        (Inventory Request Line Items) This really isn't best practice at all and is not supported but is a
+        necessary evil. Also Reduce the size of the related list quicklinks font. decrease size of tabs font
+        -->
+        /* --- Make the enhanced related list table fonts smaller */
+        .forceRelatedListPreviewAdvancedGrid .uiVirtualDataTable { font-size: .84rem; }
+
+        /* --- Override the Std background color from gray to white (Spring 2020 / SC Console is forcing this gray! ) */
+        /*- This is for Contact
+        slot > flexipage-component2 > force-progressive-renderer > slot > slot
+        > records-lwc-detail-panel > records-base-record-form > div > div > div.record-layout-container {
+        background-color:white
+        }
+
+        /*- This is for Inventory Request (Request Details) */
+        slot > flexipage-component2 > force-progressive-renderer > slot > slot
+        > records-lwc-detail-panel > records-base-record-form > div > div > div.record-layout-container {
+        background-color:white
+        }
+        /* --- Make the related list quick links font smaller */
+        .forceRelatedListQuickLinksContainer {font-size:.85em}
+
+        /* --- Make the tab fonts smaller */
+        .forceStyle .flexipage-tabset>.slds-tabs_default>lightning-tab-bar .slds-tabs_default__item {
+        font-size: .875rem;
+        }
+
+        /* --- lower the top padding from the tabset */
+        .slds-tabs_card, .slds-tabs_card.slds-tabs_card {
+        padding-top:.50em;
+        }
+
+        /* --- Override standard related list hover component to reduce table data font size! */
+        div.slds-col.slds-no-space.forceListViewManagerPrimaryDisplayManager > table {
+        font-size:.60em!important;
+        }
+        [title^='New Note'] {
+        display:none!important;
+        }
+        /* padding: var(--lwc-varSpacingHorizontalMedium,1rem);*/
+
+        .slds-template_default {
+        padding-top: 10px;
+        }
+
+        #oneHeader > div.bBottom > one-appnav > div > div > div  {
+        font-weight: bold;
+        /*
+        color: black;
+        background: #5bd6ff;
+        */
+        }
+        .slds-global-header {background:rgba(0,0,0,0.8);backdrop-filter: saturate(180%) blur(20px);}
+        .s1FixedTop {padding-left:8px;}
+        .slds-page-header__detail-row {
+            display: flex;
+            padding-top:0;
+            padding-bottom:5px!important;
+            padding-left:40px!important;
+            margin:0;
+        margin-top: 5px!important;
+        margin-bottom: 0px;
+        margin-left: 1px!important;
+        margin-right: 1px!important;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.95);
+
+        background: rgb(172,236,211);
+        backdrop-filter: saturate(180%) blur(20px);
+
+            position: relative;
+            z-index: 2;
+                      font-weight: bold;
+
+        }
+        .flexipageBaseRecordHomeTemplateDesktop .row-main {
+           margin-top:.30rem!important;
+        }
+        .slds-select {
+        background-color: #bbecfd!important;
+        height: 1.75rem;
+        font-weight: bold!important;
+        }
+        .slds-page-header__detail-row a {
+          /*color:aquamarine;*/
+           font-weight:bold;
+           font-size:1.01rem;
+        }
+        .slds-form-element__static {
+              font-weight: bold;
+        font-size: .875rem;
+        }
+        .slds-form-element__label {
+            /*color:white;font-weight:normal!important;*/
+        }
+        .slds-card__body {
+        margin-top: 0;
+        margin-bottom: 0;
+        }
+        .slds-card__header {
+          margin-bottom:0px;
+          border-bottom:1px solid black!important;
+        }
+        .slds-card__footer {
+/* border-top:1px solid black!important;*/
+        }
+
+        .flexipageBaseRecordHomeTemplateDesktop .row-main {
+
+        }
+        .slds-context-bar {
+        background-color: black;
+        color: wheat!important;
+        }
+
+
+        <aura:if isTrue="{! !(v.currentStatus == v.validApprovalBtnStatus) }" >
+            forcegenerated-flexipage_inventory_request_record_page_all_inventory_request__c__view_js > flexipage-record-page-decorator > div > slot > flexipage-record-home-template-desktop2 > div > div.slds-grid.slds-wrap.slds-col.slds-size_1-of-1.row.row-main > div.slds-size_1-of-1.slds-medium-size_8-of-12.slds-large-size_8-of-12.column.region-main > slot > slot > flexipage-component2:nth-child(3) > force-progressive-renderer > slot > slot > flexipage-aura-wrapper > div > div > div > div > lst-list-view-manager-header > div > div:nth-child(1) > div:nth-child(2)
+            {
+            display:none!important;
+            }
+            [title^='Submit for Approval'] {
+            display:none!important;
+            }
+        </aura:if>
+    </aura:html>
+</aura:component>

@@ -1,0 +1,40 @@
+.video-responsive{
+    overflow:hidden;
+    padding-bottom:52.75%;
+    position:relative;
+    height:0;
+    max-height:350px;
+}
+.video-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+.marquee {
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-right: 1%;
+    width:950px;
+    animation: marquee 5s linear infinite;
+}
+
+.marquee2 span {
+    animation-delay: 2.5s;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-100%, 0);
+    }
+}

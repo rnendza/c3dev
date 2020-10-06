@@ -1,0 +1,8 @@
+<aura:component description="C3UiMessagingUtils" access="global">
+    <aura:method name="displayUiMsg" action="{!c.displayUiMsg}" access="global">
+        <aura:attribute name="type" type="string" default="" required="true" />
+        <aura:attribute name="msg" type="String" required="true"/>
+        <aura:attribute name="mode" type="String" required="false" default="dismissible"/>
+        <aura:attribute name="duration" type="Integer" required="false" default="7000"/>
+    </aura:method>
+</aura:component>

@@ -1,0 +1,14 @@
+<aura:component description="C3_CollectionUtils" access="global">
+    <!-- Async version -->
+    <aura:method name="getMapValue" action="{!c.getMapValue}" access="global"
+                 description="======= Deprecated in favor of getData =========">
+        <aura:attribute name="mKey" type="Object" required="true"/>
+        <aura:attribute name="values" type="Object[]" required="true"/>
+        <aura:attribute name="callback" type="function" required="true"/>
+    </aura:method>
+    <!-- Sync version of above -->
+    <aura:method name="getData" action="{!c.getData}" access="global">
+        <aura:attribute name="mKey" type="Object" required="true"/>
+        <aura:attribute name="values" type="Object[]" required="true"/>
+    </aura:method>
+</aura:component>

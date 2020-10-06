@@ -29,8 +29,26 @@
         <name>StaticResource</name>
     </types>
     <types>
-        <members>illuminatedCloud</members>
-        <name>EmailServicesFunction</name>
+        <members>Contact</members>
+        <members>Contact_Progress_Indicator__mdt</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Contact.Career_Status__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Contact-en_US</members>
+        <members>Contact_Progress_Indicator__mdt-en_US</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>CustomLabels</members>
+        <name>CustomLabels</name>
     </types>
     <version>48.0</version>
 </Package>

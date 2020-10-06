@@ -5,10 +5,10 @@ public with sharing class YelpSearchController {
     public static final String MAP_KEY_FILTERED_CATEGORIES      = 'MAP_KEY_FILTERED_CATEGORIES';
 
     @AuraEnabled(Cacheable=true)
-    public static ResponseDto retrieveBusinesses (  String location,
+    public static C3ResponseDto retrieveBusinesses (  String location,
             Decimal latitude, Decimal longitude,
             String term, List<String> categories, Integer radiusMeters ) {
-        ResponseDto dto = new ResponseDto();
+        C3ResponseDto dto = new C3ResponseDto();
         String jsonResult = '';
         String sCategories = null;
         if(categories != null && !categories.isEmpty()) {
@@ -33,8 +33,8 @@ public with sharing class YelpSearchController {
      * @return
      */
     @AuraEnabled(Cacheable=true)
-    public static ResponseDto retrieveBusinessDetails ( String businessId ) {
-        ResponseDto dto = new ResponseDto();
+    public static C3ResponseDto retrieveBusinessDetails ( String businessId ) {
+        C3ResponseDto dto = new C3ResponseDto();
         String jsonResult =  YelpSearchSvc.businessDetailsSearch(businessId);
         if(jsonResult!=null) {
             dto.isSuccess = true;
@@ -55,8 +55,8 @@ public with sharing class YelpSearchController {
      * @return
      */
     @AuraEnabled(Cacheable=true)
-    public static ResponseDto retrieveReviews ( String businessId ) {
-        ResponseDto dto = new ResponseDto();
+    public static C3ResponseDto retrieveReviews ( String businessId ) {
+        C3ResponseDto dto = new C3ResponseDto();
         YelpReviewsParser results = YelpSearchSvc.reviewsSearch(businessId);
         if(results!=null) {
             dto.isSuccess = true;
@@ -72,12 +72,12 @@ public with sharing class YelpSearchController {
      * @return
      */
     @AuraEnabled(Cacheable=true)
-    public static ResponseDto retrieveCategories(String locale, List<String> parentAliases) {
+    public static C3ResponseDto retrieveCategories(String locale, List<String> parentAliases) {
         Set<String> uniqueParentCategories = new Set<String>();
         if(parentAliases != null) {
             uniqueParentCategories.addAll(parentAliases);
         }
-        ResponseDto dto = new ResponseDto();
+        C3ResponseDto dto = new C3ResponseDto();
         List<YelpCategoryParser.categories> categories = YelpSearchSvc.filteredCategoriesSearch(locale, uniqueParentCategories);
         dto.isSuccess = true;
 

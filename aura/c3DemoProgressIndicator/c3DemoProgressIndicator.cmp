@@ -1,0 +1,145 @@
+<aura:component description="C3ContactProgressIndicator"
+                controller="C3ContactController"
+                implements="flexipage:availableForRecordHome,force:hasRecordId">
+
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="recordLoadError" type="String" />
+    <aura:attribute name="simpleRecord" type="Object" />
+    <aura:attribute name="progressIndicators" type="Object" />
+    <aura:attribute name="progressPct" type="Integer" />
+    <aura:attribute name="totalNbrOfSteps" type="Integer" default="0" />
+    <aura:attribute name="currentStepNbr" type="Integer" default="0" />
+    <aura:attribute name="currentProgressIndicator" type="Object" />
+    <aura:attribute name="cmpCollapsed" type="Boolean" default="false" />
+    <aura:attribute name="cardTitle" type="String" default="Candidate Hiring Life-cycle" />
+    <aura:attribute name="debugConsole" type="Boolean" default="true" />
+    <aura:attribute name="parentStatusIndicator" type="Object" />
+    <aura:attribute name="hideLockedPill" type="Boolean" default="false" />
+    <aura:attribute name="selectedValue" type="String" default="" />
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="allStatusesLoaded" type="Boolean" default="false" />
+    <aura:attribute name="processing" type="Boolean" default="true"/>
+    <aura:attribute name="contact" type="Object" default="{}" />
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+
+    <c:C3Promises context="{!this}"/>
+    <c:C3UiMessagingUtils aura:id="uiMessagingUtils"/>
+    <c:C3_CollectionUtils aura:id="collectionUtils"/>
+    <c:C3LoggingUtils aura:id="loggingUtils"/>
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="appEvent" type="c:appEvent"/>
+
+<!--    <aura:handler name="statusChangedEvent" event="c:compEvent"-->
+<!--                  action="{!c.handleStatusChangedEvent}"/>-->
+
+
+
+    <force:recordData aura:id="contactRecord"
+                      recordId="{!v.recordId}"
+                      targetRecord ="{!v.record}"
+                      targetFields="{!v.simpleRecord}"
+                      recordUpdated="{! c.handleRecordChanged }"
+                      targetError="{!v.recordLoadError}"
+                      fields="Id, Name, Candidate_Status__c"/>
+
+    <aura:attribute name="headerTitle" type="Aura.Component[]">
+        <span class="slds-card__header-title slds-truncate slds-m-right--xx-small accel-card-title">{!v.cardTitle}</span>
+    </aura:attribute>
+
+    <c:c3RecordPageStyleOverrides currentStatus="{!v.simpleRecord.Candidate_Status__c}" validApprovalBtnStatus="Open"/>
+
+
+    <lightning:card title="{!v.headerTitle}" iconName="standard:sales_path" >
+
+        <aura:set attribute="actions">
+            <div class="slds-grid slds-gutters_xx-small">
+                <div class="slds-col slds-size--1-of-2">
+
+                </div>
+                <div class="slds-col slds-size--1-of-2">
+                    <aura:if isTrue="{!!v.cmpCollapsed}">
+                        <div style="display:inline-block;" onclick="{!c.handleCollapseComponent}">
+                            <lightning:icon iconName="utility:collapse_all" size="small"/>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.cmpCollapsed}">
+                        <div style="display:inline-block;" onclick="{!c.handleExpandComponent}">
+                            <lightning:icon iconName="utility:expand_alt" size="small"/>
+                        </div>
+                    </aura:if>
+                </div>
+            </div>
+        </aura:set>
+        <div class="{!v.cmpCollapsed ? 'slds-hide' : 'accel-progress-container_vertical'}">
+
+            <div class="slds-progress slds-progress_vertical accel-progress_vertical">
+                <!--  @see https://www.lightningdesignsystem.com/components/progress-indicator/#Green-Success -->
+                <ol class="slds-progress__list">
+                    <aura:iteration items="{!v.progressIndicators}" var="progressIndicator">
+
+                        <li class="{!progressIndicator.completed ? 'slds-progress__item slds-is-completed' :
+                                progressIndicator.current ? 'slds-progress__item slds-is-active' : 'slds-progress__item'}">
+
+                            <aura:if isTrue="{!progressIndicator.completed}">
+                                <lightning:icon iconName="utility:success" variant="success" size="x-small"
+                                                class=" slds-icon-utility-success slds-progress__marker slds-progress__marker_icon"/>
+                            </aura:if>
+                            <aura:if isTrue="{!progressIndicator.current}">
+                                <div class="slds-progress__marker">
+                                    <span class="slds-assistive-text">Active</span>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{! and(!progressIndicator.completed,!progressIndicator.current)}">
+                                <div class="slds-progress__marker"></div>
+                            </aura:if>
+
+                            <div class="slds-progress__item_content">
+                                <div class="slds-grid slds-gutters_x-small slds-grid_vertical-align-center">
+                                    <div class="{!' slds-col slds-size--2-of-6 '+ progressIndicator.textClass + ' ' +
+                                                                                progressIndicator.valueContainerClass }">
+                                        ({!progressIndicator.order}) {!progressIndicator.displayValue}
+                                    </div>
+                                    <div class="{!' slds-col slds-size--4-of-6 accel-progress-description '+ progressIndicator.textClass}">
+                                        <aura:unescapedHtml value="{!progressIndicator.description}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </aura:iteration>
+                </ol>
+                <div aria-valuemin="0" aria-valuemax="100" aria-valuenow="{!v.progressPct}" role="progressbar">
+                    <span class="slds-assistive-text">Progress: {!v.progressPct}%</span>
+                </div>
+                <c:c3Spinner showSpinner="{!v.processing}"> </c:c3Spinner>
+            </div>
+        </div>
+
+        <div class="slds-card__footer" style="padding-top:10px;padding-bottom:10px">
+            <div class="slds-grid">
+                <div class="slds-col slds-size--3-of-12 slds-text-align--left" style="font-size:1.25em!important;">
+                    <aura:if isTrue="{!and(!v.cmpCollapsed,v.allStatusesLoaded)}">
+                    <lightning:select name="colorId"
+                                      onchange="{!c.handleOnChange}"
+                                      label="Select candidate status:" aura:id="colorId" value="{!v.selectedValue}">
+                        <aura:iteration items="{!v.options}" var="option">
+                            <option text="{!option.label}"
+                                    value="{!option.id}"
+                                    selected="{!option.selected}">
+                            </option>
+                        </aura:iteration>
+                    </lightning:select>
+                    </aura:if>
+                </div>
+                <div class="slds-col slds-size--9-of-12 slds-text-align--right c3-client-name">
+                    <span class="slds-text-color_success">
+                    {!v.contact.Client__r.Name}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </lightning:card>
+</aura:component>

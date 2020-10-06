@@ -1,0 +1,48 @@
+<template>
+    <div lwc:dom="manual" class="fake-video-page-theme-overrides-class"></div>
+
+    <lightning-card  variant="Narrow"  icon-name="standard:filter">
+        <div slot="title">
+            <div class="slds-grid">
+                <div class="slds-col slds-size--1-of-2 slds-text-align--left">
+                    <span class="slds-card__header-title slds-truncate slds-m-right--xx-small c3-card-title">
+                        Candidate Video
+                    </span>
+                </div>
+                <div class="slds-col slds-size--1-of-2 slds-text-align--right">
+                    <div>
+                        <div style="display:inline-block">
+
+                        </div>
+                        <div if:false={cmpCollapsed} style="display:inline-block;"
+                             onclick={handleCollapseCmp}>
+                            <lightning-icon icon-name="utility:collapse_all" alternative-text="Collapse All"
+                                            size="small"></lightning-icon>
+                        </div>
+                        <div if:true={cmpCollapsed} style="display:inline-block;"
+                             onclick={handleExpandCmp}>
+                            <lightning-icon icon-name="utility:expand_alt" alternative-text="Expand All"
+                                            size="small"></lightning-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class={cardBodyClass} >
+            <div class="video-responsive" style="height:200px">
+                <iframe width="220" height="115" src="https://www.youtube.com/embed/m0zyuc_2UVg"
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+        <div class={cardFooterClass}>
+        <div slot="footer"  style="height:20px">
+            <p class="marquee">
+                <span class="slds-text-color_destructive slds-text-title_bold">Hire Rick Now before it's too late! 630-310-0898 -&nbsp;</span>
+            </p>
+        </div>
+        </div>
+    </lightning-card>
+
+</template>

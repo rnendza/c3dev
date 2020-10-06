@@ -2,7 +2,7 @@
  *  A general Data Transfer Object to return data from an remote method to the client.
  *  This allows us to pass back many values as well as server side messaging information easily!
  */
-public class ResponseDto {
+public class C3ResponseDto {
 
     @AuraEnabled public Boolean isSuccess { get; set; }
     @AuraEnabled public String message { get; set; }
@@ -19,10 +19,10 @@ public class ResponseDto {
     //== Note the value property can be used in place of the below if preferred as well.
     @AuraEnabled public Map<Object, List<SObject>> valuesSobjList { get; set; }
 
-    public ResponseDto() {
+    public C3ResponseDto() {
         initObj();
     }
-    public ResponseDto(Boolean isSuccess, String msg) {
+    public C3ResponseDto(Boolean isSuccess, String msg) {
         this.isSuccess = isSuccess;
         this.message = msg;
         this.values = new Map<Object, Object>();
