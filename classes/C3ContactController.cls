@@ -8,7 +8,7 @@ public with sharing class C3ContactController {
         Contact c= [SELECT Id,Candidate_Status__c FROM Contact where Id = :contactId];
         c.Candidate_STatus__c = status;
         update c;
-
+//test changes
         dto.isSuccess = true;
         return dto;
     }
